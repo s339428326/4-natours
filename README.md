@@ -6,7 +6,7 @@
 
 ## 課程專案名稱：Natours(旅遊預訂平台)
 
-postman API doc page
+[postman API documenter page](https://documenter.getpostman.com/view/24644154/2s93m8yLUy)
 
 ### 此專案在 node version v18.12.1 建立
 
