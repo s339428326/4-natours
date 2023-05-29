@@ -1,0 +1,22 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Natours | <%= title %></title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300i,700" />
+  <link rel="shortcut icon" href="/img/favicon.png" type="image/png" />
+  <script src='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js'></script>
+  <link href='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css' rel='stylesheet' />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+
+<body>
+  <%- include(`pages/${page}`); -%>
+
+  <!-- <script src="https://js.stripe.com/v3/"></script> -->
+  <script src="/js/bundle.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,206 @@
+<header class="header">
+  <nav class="nav nav--tours">
+    <a href="/" class="nav__el">All tours</a>
+    <form class="nav__search">
+      <button class="nav__search-btn">
+        <svg>
+          <use xlink:href="/img/icons.svg#icon-search"></use>
+        </svg>
+      </button>
+      <input type="text" placeholder="Search tours" class="nav__search-input" />
+    </form>
+  </nav>
+  <div class="header__logo">
+    <img src="/img/logo-white.png" alt="Natours logo" />
+  </div>
+  <nav class="nav nav--user">
+    <%if(locals.user){%>
+    <a href="/my-tours" class="nav__el">My bookings</a>
+    <a href="#" class="nav__el nav__down-list">
+      <img src='<%= `/img/users/${user.photo}` %>' alt="User photo" class="nav__user-img" />
+      <span><%= user.name %></span>
+    </a>
+    <%}else{%>
+    <a class="nav__el" href="/login">Log in</a></button>
+    <a class="nav__el nav__el--cta" href="/singin">Sign up</a>
+    <%}%>
+    <ul class="down-list">
+      <li>
+        <a href="/profile">profile</a>
+      </li>
+      <li>
+        <a id="btn-logout" href="#">Log out</a>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <section class="section-header">
+    <img class="header__hero-img header__hero-overlay " src=<%= `/img/tours/${tour.imageCover}` %> alt=<%= `${tour.slug}` %>>
+    <div class="heading-box">
+      <h1 class="heading-primary">
+        <span><%= tour.name %></span>
+      </h1>
+      <div class="heading-box__group">
+        <div class="heading-box__detail">
+          <svg class="heading-box__icon">
+            <use xlink:href="/img/icons.svg#icon-clock"></use>
+          </svg>
+          <span class="heading-box__text"><%= tour.duration %> days</span>
+        </div>
+        <div class="heading-box__detail">
+          <svg class="heading-box__icon">
+            <use xlink:href="/img/icons.svg#icon-map-pin"></use>
+          </svg>
+          <span class="heading-box__text"><%= tour.startLocation.description %></span>
+        </div>
+      </div>
+    </div>
+    </section>
+
+    <section class="section-description">
+      <div class="overview-box">
+        <div>
+          <div class="overview-box__group">
+            <h2 class="heading-secondary ma-bt-lg">Quick facts</h2>
+            <div class="overview-box__detail">
+              <svg class="overview-box__icon">
+                <use xlink:href="/img/icons.svg#icon-calendar"></use>
+              </svg>
+              <span class="overview-box__label">Next date</span>
+              <span class="overview-box__text"><%= tour.startDates[0].toLocaleString('en-us',{ month: "long",
+              year: "numeric",}) %></span>
+            </div>
+            <div class="overview-box__detail">
+              <svg class="overview-box__icon">
+                <use xlink:href="/img/icons.svg#icon-trending-up"></use>
+              </svg>
+              <span class="overview-box__label">Difficulty</span>
+              <span class="overview-box__text"><%= tour.difficulty %></span>
+            </div>
+            <div class="overview-box__detail">
+              <svg class="overview-box__icon">
+                <use xlink:href="/img/icons.svg#icon-user"></use>
+              </svg>
+              <span class="overview-box__label">Participants</span>
+              <span class="overview-box__text"><%= tour.maxGroupSize %> people</span>
+            </div>
+            <div class="overview-box__detail">
+              <svg class="overview-box__icon">
+                <use xlink:href="/img/icons.svg#icon-star"></use>
+              </svg>
+              <span class="overview-box__label">Rating</span>
+              <span class="overview-box__text"><%= tour.ratingsAverage %> / 5</span>
+            </div>
+          </div>
+
+          <div class="overview-box__group">
+            <h2 class="heading-secondary ma-bt-lg">Your tour guides</h2>
+
+            <% tour.guides.forEach((guide) => { %>
+            <div class="overview-box__detail">
+              <img src=<%= `/img/users/${guide.photo}` %> alt=<%= `${guide.role}`
+            %> %> class="overview-box__img" />
+              <span class="overview-box__label"><%= `${guide.role}` %></span>
+              <span class="overview-box__text"><%= `${guide.name}`%></span>
+            </div>
+            <% }); %>
+          </div>
+        </div>
+      </div>
+
+      <div class="description-box">
+        <h2 class="heading-secondary ma-bt-lg">About <%= tour.name %></h2>
+        <% const descriptionArr = tour.description.split('\n') %>
+        <p class="description__text">
+          <%= descriptionArr[0] %>
+          <br />
+          <br />
+          <%= descriptionArr[1] %>
+        </p>
+      </div>
+    </section>
+
+    <section class="section-pictures">
+      <% tour.images.forEach((image,index) => { %>
+      <div class="picture-box">
+        <img class=<%= `picture-box__img picture-box__img--${index + 1}` %> src=<%= `/img/tours/${image}` %> alt=<%= `${tour.slug}-${index}` %> />
+      </div>
+      <% }) %>
+    </section>
+
+    <section class="section-map">
+      <div id="map" data-locations='<%= JSON.stringify(tour.locations) %>'></div>
+    </section>
+
+    <section class="section-reviews">
+      <div class="reviews">
+        <% tour.reviews.forEach(review => { %>
+        <div class="reviews__card">
+          <div class="reviews__avatar">
+            <img src=<%= `/img/users/${review.user.photo}` %> alt<%= `${review.user.name}` %> class="reviews__avatar-img" />
+            <h6 class="reviews__user">Jim Brown</h6>
+          </div>
+          <p class="reviews__text">
+            <%= review.review %>
+          </p>
+          <div class="reviews__rating">
+            <% for (num of [1,2,3,4,5]){%>
+            <% if(review.rating >= num){ %>
+            <svg class="reviews__star reviews__star--active">
+              <use xlink:href="/img/icons.svg#icon-star"></use>
+            </svg>
+            <% }else{ %>
+            <svg class="reviews__star reviews__star--inactive">
+              <use xlink:href="/img/icons.svg#icon-star"></use>
+            </svg>
+            <% } %>
+            <%} %>
+
+          </div>
+        </div>
+        <% }) %>
+
+      </div>
+    </section>
+
+    <section class="section-cta">
+      <div class="cta">
+        <div class="cta__img cta__img--logo">
+          <img src="/img/logo-white.png" alt="Natours logo" class="" />
+        </div>
+        <img class="cta__img cta__img--1" src=<%= `/img/tours/${tour.images[1]}` %> alt=<%= `${tour.slug}-cta-1` %> />
+        <img src=<%= `/img/tours/${tour.images[2]}` %> alt=<%= `${tour.slug}-cta-2` %> class="cta__img cta__img--2" />
+
+        <div class="cta__content">
+          <h2 class="heading-secondary">What are you waiting for?</h2>
+          <p class="cta__text">
+            <%= `${tour.duration} days. 1 adventure. Infinite memories. Make it yours today!` %>
+
+          </p>
+          <% if(locals.user){ %>
+          <button id="btn-booking" class="btn btn--green span-all-rows" data-tour-id='<%= tour.id %>'>Book tour now!</button>
+          <% }else{ %>
+          <a href="/login" class="btn btn--green span-all-rows">想要參加，請先登入</a>
+          <% } %>
+
+        </div>
+      </div>
+    </section>
+    </main>
+    <footer class="footer">
+      <div class="footer__logo">
+        <img src="/img/logo-green.png" alt="Natours logo" />
+      </div>
+      <ul class="footer__nav">
+        <li><a href="#">About us</a></li>
+        <li><a href="#">Download apps</a></li>
+        <li><a href="#">Become a guide</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+      <p class="footer__copyright">
+        &copy; by Jonas Schmedtmann. All rights reserved.
+      </p>
+    </footer>

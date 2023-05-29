@@ -1,0 +1,60 @@
+<header class="header">
+  <nav class="nav nav--tours">
+    <a href="/" class="nav__el">All tours</a>
+    <form class="nav__search">
+      <button class="nav__search-btn">
+        <svg>
+          <use xlink:href="/img/icons.svg#icon-search"></use>
+        </svg>
+      </button>
+      <input type="text" placeholder="Search tours" class="nav__search-input" />
+    </form>
+  </nav>
+  <div class="header__logo">
+    <img src="/img/logo-white.png" alt="Natours logo" />
+  </div>
+  <nav class="nav nav--user">
+    <%if(locals.user){%>
+    <a href="#" class="nav__el">My bookings</a>
+    <a href="#" class="nav__el nav__down-list">
+      <img src='<%= `/img/users/${user.photo}` %>' alt="User photo" class="nav__user-img" />
+      <span><%= user.name %></span>
+    </a>
+    <%}else{%>
+    <a class="nav__el" href="/login">Log in</a></button>
+    <a class="nav__el nav__el--cta" href="/singin">Sign up</a>
+    <%}%>
+      <ul class="down-list">
+        <li>
+          <a href="">profile</a>
+        </li>
+        <li>
+          <a id="btn-logout" href="#">Log out</a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+<main class="main">
+  <div class="error">
+    <div class="error__title">
+      <h2 class="heading-secondary heading-secondary--error">Uh oh! Something went wrong! </h2>
+      <h2 class="error__emoji">😢 🤯</h2>
+    </div>
+    <div class="error__msg"><%= msg %></div>
+    </div>
+    </main>
+    <footer class="footer">
+      <div class="footer__logo">
+        <img src="/img/logo-green.png" alt="Natours logo" />
+      </div>
+      <ul class="footer__nav">
+        <li><a href="#">About us</a></li>
+        <li><a href="#">Download apps</a></li>
+        <li><a href="#">Become a guide</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+      <p class="footer__copyright">
+        &copy; by Jonas Schmedtmann. All rights reserved.
+      </p>
+    </footer>
