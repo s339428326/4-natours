@@ -16,7 +16,7 @@ const DB = {
 };
 
 mongoose
-  .connect(DB.local, {
+  .connect(DB.server, {
     useNewUrlParser: true,
   })
   .then(() => console.log('使用自動寫入本地JSON腳本'));
