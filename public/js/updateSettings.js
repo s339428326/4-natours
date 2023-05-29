@@ -5,13 +5,12 @@ import { logout } from './login';
 //updata(type)
 
 export const updateUserData = async (type) => {
-  const domain = 'http://127.0.0.1:6300';
   let apiUrl = '';
   let data = {};
 
   //data
   if (type === 'password') {
-    apiUrl = `${domain}/api/v1/users/updatePassword`;
+    apiUrl = `api/v1/users/updatePassword`;
     data = {
       currentPassword: document.querySelector('#password-current').value,
       password: document.querySelector('#password').value,
@@ -24,7 +23,7 @@ export const updateUserData = async (type) => {
     form.append('email', document.querySelector('#email').value);
     form.append('photo', document.querySelector('#photo').files[0]);
 
-    apiUrl = `${domain}/api/v1/users/updateOwnInfo`;
+    apiUrl = `/api/v1/users/updateOwnInfo`;
     data = form;
   }
 

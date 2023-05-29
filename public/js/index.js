@@ -68,13 +68,12 @@ if (saveUserInfoBtn) {
 if (forgetPasswordBtn) {
   forgetPasswordBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    const domain = 'http://127.0.0.1:6300';
     let email =
       forgetPasswordBtn.parentElement.parentElement.children[0].children[1]
         .value;
     (async () => {
       try {
-        const res = await axios.post(`${domain}/api/v1/users/forgetPassword`, {
+        const res = await axios.post(`/api/v1/users/forgetPassword`, {
           email,
         });
         email = '';
@@ -90,7 +89,6 @@ if (forgetPasswordBtn) {
 if (resetPasswordBtn) {
   resetPasswordBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    const domain = 'http://127.0.0.1:6300';
     const resetToken = window.location.pathname.split('/')[2];
 
     //function(token)
@@ -113,7 +111,7 @@ if (resetPasswordBtn) {
     (async () => {
       try {
         const res = await axios.post(
-          `${domain}/api/v1/users/resetPassword/${resetToken}`,
+          `/api/v1/users/resetPassword/${resetToken}`,
           resetPasswordData
         );
         console.log(res);

@@ -1,12 +1,8 @@
 import axios from 'axios';
 
 export const bookTour = async (tourId) => {
-  const domain = 'http://127.0.0.1:6300';
-
   try {
-    const res = await axios.get(
-      `${domain}/api/v1/booking/checkout-session/${tourId}`
-    );
+    const res = await axios.get(`/api/v1/booking/checkout-session/${tourId}`);
     location.assign(res.data.session.url);
 
     // await stripe.redirectToCheckout({

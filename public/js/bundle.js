@@ -21421,15 +21421,14 @@ function login(_x) {
 }
 function _login() {
   _login = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(data) {
-    var domain, res;
+    var res;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
-          domain = 'http://127.0.0.1:6300/';
-          _context.prev = 1;
-          _context.next = 4;
-          return _axios.default.post("".concat(domain, "api/v1/users/login"), data);
-        case 4:
+          _context.prev = 0;
+          _context.next = 3;
+          return _axios.default.post("api/v1/users/login", data);
+        case 3:
           res = _context.sent;
           console.log(res);
           if (res.status === 200) {
@@ -21439,19 +21438,19 @@ function _login() {
               location.assign('/');
             }, 1500);
           }
-          _context.next = 13;
+          _context.next = 12;
           break;
-        case 9:
-          _context.prev = 9;
-          _context.t0 = _context["catch"](1);
+        case 8:
+          _context.prev = 8;
+          _context.t0 = _context["catch"](0);
           // console.log(err.response.data);
           console.log(_context.t0);
           (0, _alert.showAlert)('error', "\u767B\u5165\u5931\u6557 !\n, ".concat(_context.t0.response.data.message));
-        case 13:
+        case 12:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[1, 9]]);
+    }, _callee, null, [[0, 8]]);
   }));
   return _login.apply(this, arguments);
 }
@@ -21460,28 +21459,27 @@ function logout() {
 }
 function _logout() {
   _logout = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-    var domain, res;
+    var res;
     return _regeneratorRuntime().wrap(function _callee2$(_context2) {
       while (1) switch (_context2.prev = _context2.next) {
         case 0:
-          domain = 'http://127.0.0.1:6300/';
-          _context2.prev = 1;
-          _context2.next = 4;
-          return _axios.default.get("".concat(domain, "api/v1/users/logout"));
-        case 4:
+          _context2.prev = 0;
+          _context2.next = 3;
+          return _axios.default.get("api/v1/users/logout");
+        case 3:
           res = _context2.sent;
           location.assign('/');
-          _context2.next = 11;
+          _context2.next = 10;
           break;
-        case 8:
-          _context2.prev = 8;
-          _context2.t0 = _context2["catch"](1);
+        case 7:
+          _context2.prev = 7;
+          _context2.t0 = _context2["catch"](0);
           (0, _alert.showAlert)('error', "\u767B\u5165\u5931\u6557 !, \u8ACB\u91CD\u65B0\u5617\u8A66");
-        case 11:
+        case 10:
         case "end":
           return _context2.stop();
       }
-    }, _callee2, null, [[1, 8]]);
+    }, _callee2, null, [[0, 7]]);
   }));
   return _logout.apply(this, arguments);
 }
@@ -21504,15 +21502,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 var updateUserData = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(type) {
-    var domain, apiUrl, data, form, res;
+    var apiUrl, data, form, res;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
-          domain = 'http://127.0.0.1:6300';
           apiUrl = '';
           data = {}; //data
           if (type === 'password') {
-            apiUrl = "".concat(domain, "/api/v1/users/updatePassword");
+            apiUrl = "api/v1/users/updatePassword";
             data = {
               currentPassword: document.querySelector('#password-current').value,
               password: document.querySelector('#password').value,
@@ -21524,13 +21521,13 @@ var updateUserData = /*#__PURE__*/function () {
             form.append('name', document.querySelector('#name').value);
             form.append('email', document.querySelector('#email').value);
             form.append('photo', document.querySelector('#photo').files[0]);
-            apiUrl = "".concat(domain, "/api/v1/users/updateOwnInfo");
+            apiUrl = "/api/v1/users/updateOwnInfo";
             data = form;
           }
-          _context.prev = 5;
-          _context.next = 8;
+          _context.prev = 4;
+          _context.next = 7;
           return _axios.default.patch(apiUrl, data);
-        case 8:
+        case 7:
           res = _context.sent;
           if (res.status === 200) {
             (0, _alert.showAlert)('success', '更新成功！');
@@ -21539,16 +21536,16 @@ var updateUserData = /*#__PURE__*/function () {
             }, 2000);
           }
           return _context.abrupt("return", res);
-        case 13:
-          _context.prev = 13;
-          _context.t0 = _context["catch"](5);
+        case 12:
+          _context.prev = 12;
+          _context.t0 = _context["catch"](4);
           (0, _alert.showAlert)('error', "".concat(_context.t0.response.data.message));
           return _context.abrupt("return", _context.t0.response.data.message);
-        case 17:
+        case 16:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[5, 13]]);
+    }, _callee, null, [[4, 12]]);
   }));
   return function updateUserData(_x) {
     return _ref.apply(this, arguments);
@@ -21570,32 +21567,31 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 var bookTour = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(tourId) {
-    var domain, res;
+    var res;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
-          domain = 'http://127.0.0.1:6300';
-          _context.prev = 1;
-          _context.next = 4;
-          return _axios.default.get("".concat(domain, "/api/v1/booking/checkout-session/").concat(tourId));
-        case 4:
+          _context.prev = 0;
+          _context.next = 3;
+          return _axios.default.get("/api/v1/booking/checkout-session/".concat(tourId));
+        case 3:
           res = _context.sent;
           location.assign(res.data.session.url);
 
           // await stripe.redirectToCheckout({
           //   sessionId: res.data.session.id,
           // });
-          _context.next = 11;
+          _context.next = 10;
           break;
-        case 8:
-          _context.prev = 8;
-          _context.t0 = _context["catch"](1);
+        case 7:
+          _context.prev = 7;
+          _context.t0 = _context["catch"](0);
           console.log(_context.t0.response.data.message);
-        case 11:
+        case 10:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[1, 8]]);
+    }, _callee, null, [[0, 7]]);
   }));
   return function bookTour(_x) {
     return _ref.apply(this, arguments);
@@ -21670,7 +21666,6 @@ if (saveUserInfoBtn) {
 if (forgetPasswordBtn) {
   forgetPasswordBtn.addEventListener('click', function (e) {
     e.preventDefault();
-    var domain = 'http://127.0.0.1:6300';
     var email = forgetPasswordBtn.parentElement.parentElement.children[0].children[1].value;
     _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
       var res;
@@ -21679,7 +21674,7 @@ if (forgetPasswordBtn) {
           case 0:
             _context.prev = 0;
             _context.next = 3;
-            return _axios.default.post("".concat(domain, "/api/v1/users/forgetPassword"), {
+            return _axios.default.post("/api/v1/users/forgetPassword", {
               email: email
             });
           case 3:
@@ -21704,7 +21699,6 @@ if (forgetPasswordBtn) {
 if (resetPasswordBtn) {
   resetPasswordBtn.addEventListener('click', function (e) {
     e.preventDefault();
-    var domain = 'http://127.0.0.1:6300';
     var resetToken = window.location.pathname.split('/')[2];
 
     //function(token)
@@ -21726,7 +21720,7 @@ if (resetPasswordBtn) {
           case 0:
             _context2.prev = 0;
             _context2.next = 3;
-            return _axios.default.post("".concat(domain, "/api/v1/users/resetPassword/").concat(resetToken), resetPasswordData);
+            return _axios.default.post("/api/v1/users/resetPassword/".concat(resetToken), resetPasswordData);
           case 3:
             res = _context2.sent;
             console.log(res);
