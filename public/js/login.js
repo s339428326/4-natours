@@ -5,7 +5,6 @@ import { showAlert } from './alert';
 export async function login(data) {
   const domain = 'http://127.0.0.1:6300/';
   try {
-    //   console.log(JSON.stringify(data));
     const res = await axios.post(`${domain}api/v1/users/login`, data);
     console.log(res);
     if (res.status === 200) {

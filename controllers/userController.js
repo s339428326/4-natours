@@ -78,8 +78,6 @@ exports.patchUser = handlerFactory.patchOne(User);
 exports.deleteUser = handlerFactory.deleteOne(User);
 
 exports.updateOwnInfo = catchAsync(async (req, res, next) => {
-  // console.log(req.file);
-  // console.log(req.body);
   if (req.body.password || req.body.passwordConfirm)
     return next(new AppError('請使用 /forgetPassword 路由來更改密碼'), 401);
 

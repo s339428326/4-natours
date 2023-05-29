@@ -23,17 +23,14 @@ export const updateUserData = async (type) => {
     form.append('name', document.querySelector('#name').value);
     form.append('email', document.querySelector('#email').value);
     form.append('photo', document.querySelector('#photo').files[0]);
-    console.log(form);
 
     apiUrl = `${domain}/api/v1/users/updateOwnInfo`;
     data = form;
-    console.log(data);
   }
 
   try {
     const res = await axios.patch(apiUrl, data);
     if (res.status === 200) {
-      console.log(res);
       showAlert('success', '更新成功！');
       setTimeout(() => location.assign(`/profile`), 2000);
     }

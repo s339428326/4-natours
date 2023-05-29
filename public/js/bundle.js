@@ -21524,10 +21524,8 @@ var updateUserData = /*#__PURE__*/function () {
             form.append('name', document.querySelector('#name').value);
             form.append('email', document.querySelector('#email').value);
             form.append('photo', document.querySelector('#photo').files[0]);
-            console.log(form);
             apiUrl = "".concat(domain, "/api/v1/users/updateOwnInfo");
             data = form;
-            console.log(data);
           }
           _context.prev = 5;
           _context.next = 8;
@@ -21535,7 +21533,6 @@ var updateUserData = /*#__PURE__*/function () {
         case 8:
           res = _context.sent;
           if (res.status === 200) {
-            console.log(res);
             (0, _alert.showAlert)('success', '更新成功！');
             setTimeout(function () {
               return location.assign("/profile");
@@ -21583,23 +21580,22 @@ var bookTour = /*#__PURE__*/function () {
           return _axios.default.get("".concat(domain, "/api/v1/booking/checkout-session/").concat(tourId));
         case 4:
           res = _context.sent;
-          console.log(res);
           location.assign(res.data.session.url);
 
           // await stripe.redirectToCheckout({
           //   sessionId: res.data.session.id,
           // });
-          _context.next = 12;
+          _context.next = 11;
           break;
-        case 9:
-          _context.prev = 9;
+        case 8:
+          _context.prev = 8;
           _context.t0 = _context["catch"](1);
           console.log(_context.t0.response.data.message);
-        case 12:
+        case 11:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[1, 9]]);
+    }, _callee, null, [[1, 8]]);
   }));
   return function bookTour(_x) {
     return _ref.apply(this, arguments);
@@ -21650,7 +21646,6 @@ if (loginBtn) {
 }
 if (logoutBtn) {
   logoutBtn.addEventListener('click', function (e) {
-    console.log('click');
     (0, _login.logout)();
   });
 }
@@ -21711,7 +21706,6 @@ if (resetPasswordBtn) {
     e.preventDefault();
     var domain = 'http://127.0.0.1:6300';
     var resetToken = window.location.pathname.split('/')[2];
-    console.log("Token ".concat(window.location.pathname.split('/')[2]));
 
     //function(token)
     var resetFormGroup = document.querySelectorAll('.reset-password .form__group');
@@ -21749,9 +21743,6 @@ if (resetPasswordBtn) {
         }
       }, _callee2, null, [[0, 8]]);
     }))();
-
-    //test data
-    console.log(resetPasswordData);
   });
 }
 if (bookingBtn) {

@@ -41,7 +41,6 @@ if (loginBtn) {
 
 if (logoutBtn) {
   logoutBtn.addEventListener('click', (e) => {
-    console.log('click');
     logout();
   });
 }
@@ -93,7 +92,6 @@ if (resetPasswordBtn) {
     e.preventDefault();
     const domain = 'http://127.0.0.1:6300';
     const resetToken = window.location.pathname.split('/')[2];
-    console.log(`Token ${window.location.pathname.split('/')[2]}`);
 
     //function(token)
     const resetFormGroup = document.querySelectorAll(
@@ -124,9 +122,6 @@ if (resetPasswordBtn) {
         console.log(err.response.data.message);
       }
     })();
-
-    //test data
-    console.log(resetPasswordData);
   });
 }
 

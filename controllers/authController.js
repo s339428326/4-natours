@@ -78,10 +78,10 @@ exports.login = catchAsync(async (req, res, next) => {
   if (!email || !password) {
     return next(new AppError('登入失敗！， 請從新確認 email 或 password'), 400);
   }
-  console.log(password);
+
   //2.確認是否登出或密碼是否正確
   //讓password顯示於登入
-  console.log(email);
+
   const user = await User.findOne({ email }).select(
     '+password +loginCount +loginTime'
   );
@@ -126,8 +126,6 @@ exports.login = catchAsync(async (req, res, next) => {
   };
 
   const blockResult = isUserBlock(60 * 60 * 1000, 10);
-  console.log(blockResult, user.tryLoginCount);
-
   await user.save({ validateBeforeSave: false });
 
   if (blockResult) {

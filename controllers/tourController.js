@@ -204,8 +204,6 @@ exports.getDistances = catchAsync(async (req, res, next) => {
     return next(new AppError('請提供地理位置(緯度，經度)', 400));
   }
 
-  console.log(lat * 1, lng * 1);
-
   const distances = await Tour.aggregate([
     {
       $geoNear: {

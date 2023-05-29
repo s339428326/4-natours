@@ -64,7 +64,6 @@ exports.create = (Model) =>
 //patch
 exports.patchOne = (Model) =>
   catchAsync(async (req, res, next) => {
-    console.log(req.body);
     const doc = await Model.findByIdAndUpdate(req.params.id, req.body, {
       //選項指定當更新完成後，是否回傳更新後的文件，預設為 false，若設定為 true 則會回傳更新後的文件。
       new: true,
@@ -74,12 +73,6 @@ exports.patchOne = (Model) =>
     if (!doc) {
       return next(new AppError(`Not Found id:${req.params.id}`, 404));
     }
-    //user 認證
-    // if (req.user.id === doc.user.id && req.user.role === 'admin') {
-    //   console.log('認證為同一使用者', req.user.id, doc.user.id);
-    // } else {
-    //   console.log('認證為不使用者', req.user.id, doc.user.id);
-    // }
     res.status(200).json({
       status: 'success',
       data: {
