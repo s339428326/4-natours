@@ -20,7 +20,7 @@ const database = {
   local: process.env.DATABASE_LOCAL,
 };
 
-mongoose.connect(database.local, {
+mongoose.connect(database.server, {
   useNewUrlParser: true,
 });
 
@@ -35,7 +35,7 @@ const app = require('./app');
 
 const server = app.listen(port, () =>
   console.log(
-    `NODE_ENV:${process.env?.NODE_ENV}\nApplication Start:http://127.0.0.1:${port}`
+    `NODE_ENV:${process.env?.NODE_ENV}\nApplication Start Port:${port}`
   )
 );
 
