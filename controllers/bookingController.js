@@ -88,7 +88,7 @@ exports.webhookCheckout = (req, res, next) => {
     case 'checkout.session.completed':
       console.log('checkout.session.completed trigger');
       console.log(event.data.object);
-      createBookingCheckout(event.data.object);
+      // createBookingCheckout(event.data.object);
       break;
     default:
       console.log(`Unhandled event type ${event.type}`);
