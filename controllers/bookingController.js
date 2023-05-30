@@ -68,7 +68,6 @@ const createBookingCheckout = async (session) => {
   await Booking.create({ tour, user, price });
 };
 
-//admin controller
 exports.webhookCheckout = (req, res, next) => {
   const sig = req.headers['stripe-signature'];
 
@@ -82,10 +81,13 @@ exports.webhookCheckout = (req, res, next) => {
   } catch (error) {
     res.status(404).send(`[Error] Webhook:${error.message}`);
   }
+  console.log('webhookCheckout running');
 
   // Handle the event
   switch (event.type) {
     case 'checkout.session.completed':
+      console.log('checkout.session.completed trigger');
+      console.log(event.data.object);
       createBookingCheckout(event.data.object);
       break;
     default:
