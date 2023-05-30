@@ -63,7 +63,7 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
 const createBookingCheckout = async (session) => {
   const tour = session.client_reference_id;
   const user = await User.findOne({ email: session.customer_email }).id;
-  const price = session.line_items[0].price_data.unit_amount / 100;
+  const price = session.amount_total / 100;
 
   await Booking.create({ tour, user, price });
 };
@@ -88,7 +88,8 @@ exports.webhookCheckout = (req, res, next) => {
     case 'checkout.session.completed':
       console.log('checkout.session.completed trigger');
       console.log(event.data.object);
-      // createBookingCheckout(event.data.object);
+      //Bug There!
+      createBookingCheckout(event.data.object);
       break;
     default:
       console.log(`Unhandled event type ${event.type}`);
