@@ -10,6 +10,7 @@ const xss = require('xss-clean');
 const hpp = require('hpp');
 const cookieParser = require('cookie-parser');
 const compression = require('compression');
+const cors = require('cors');
 
 //until
 const AppError = require('./utils/appError');
@@ -31,6 +32,9 @@ app.enable('trust proxy');
 app.set('view engine', 'ejs');
 app.set('layouts', path.join(__dirname, 'layouts', 'index'));
 app.use(express.static(path.join(__dirname, 'public')));
+
+//cors
+app.use(cors());
 
 //start application show run model dev or prod
 console.log(process.env?.NODE_ENV);
