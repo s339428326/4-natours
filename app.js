@@ -23,6 +23,9 @@ const reviewRouter = require('./routes/reviewRoutes');
 const viewRouter = require('./routes/viewRoutes');
 const bookingRouter = require('./routes/bookingRoutes');
 
+//controllers
+const bookingController = require('./controllers/bookingController');
+
 const app = express();
 
 //heroku 代理伺服器
@@ -83,6 +86,7 @@ app.use(
           "'self'",
           'data:',
           'blob:',
+          '*',
           'https://*.stripe.com',
           'https://*.mapbox.com',
           'https://*.cloudflare.com/',
@@ -110,6 +114,14 @@ const limiter = rateLimit({
 });
 
 app.use('/api', limiter);
+
+// 使用webhook 記入訂單資訊
+// router 寫在這裡是因為webhook 回傳body為text, 故需要這裡先將body解析
+app.post(
+  '/webhook-checkout',
+  express.raw({ type: 'application/json' }),
+  bookingController.webhookCheckout
+);
 
 //body parse
 app.use(express.json({ limit: '10kb' }));
