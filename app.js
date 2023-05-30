@@ -9,7 +9,7 @@ const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
 const cookieParser = require('cookie-parser');
-const comparession = require('compression');
+const compression = require('compression');
 
 //until
 const AppError = require('./utils/appError');
@@ -21,9 +21,11 @@ const userRouter = require('./routes/usersRoutes');
 const reviewRouter = require('./routes/reviewRoutes');
 const viewRouter = require('./routes/viewRoutes');
 const bookingRouter = require('./routes/bookingRoutes');
-const compression = require('compression');
 
 const app = express();
+
+//heroku 代理伺服器
+app.enable('trust proxy');
 
 //ejs
 app.set('view engine', 'ejs');

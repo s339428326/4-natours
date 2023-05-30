@@ -19,27 +19,24 @@ const singToken = (id) =>
     }
   );
 
-const sendJWTTokenToClient = (user, statusCode, res, userBrowserAgent) => {
+const sendJWTTokenToClient = (user, statusCode, req, res, resetToken) => {
   const token = singToken(user._id);
+  //1 day Time
   const totalMilliSecondsPerDay = 24 * 60 * 60 * 1000;
-  const cookieOptions = {
+
+  //cookie(name, value, [,options])
+  //jwt client使用cookie 進行操作憑證
+  res.cookie('jwt', token, {
     expires: new Date(
       Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * totalMilliSecondsPerDay
     ),
     //瀏覽器(client端)不能使用任何形式進行修改EX:跨站腳本攻擊(Cross-Site Scripting, XSS)
     httpOnly: true,
-  };
-  //secure = true(只用在加密傳送，可以暫時認為只能在https上進行)
-  if (
-    process.env.NODE_ENV === 'production' &&
-    !userBrowserAgent?.startsWith('Mozilla')
-  ) {
-    cookieOptions.secure = true;
-  }
+    //heroku header X-Forwarded-Proto 設定請求協議
+    secure: req.secure || req.header['x-forwarded-proto'] === 'https',
+  });
 
-  //cookie(name, value, [,options])
-  //jwt client使用cookie 進行操作憑證
-  res.cookie('jwt', token, cookieOptions);
+  user.password = undefined;
 
   res.status(statusCode).json({
     status: 'success',
@@ -67,7 +64,7 @@ exports.singUp = catchAsync(async (req, res, next) => {
   //未被建立返回 客製 Error
   if (!newUser) return next(new AppError('建立賬戶失敗 ！', 403));
   //創建後登入
-  sendJWTTokenToClient(newUser, 201, res);
+  sendJWTTokenToClient(newUser, 201, req, res);
 });
 
 exports.login = catchAsync(async (req, res, next) => {
@@ -138,10 +135,9 @@ exports.login = catchAsync(async (req, res, next) => {
   }
 
   if (user && isCorrectPassword) {
-    const userBrowserAgent = req.headers['user-agent'];
     user.tryLoginCount = 0;
     await user.save({ validateBeforeSave: false });
-    sendJWTTokenToClient(user, 200, res, userBrowserAgent);
+    sendJWTTokenToClient(user, 200, req, res);
     // res.status(200).json({
     //   status: 'success',
     //   token,
@@ -323,5 +319,5 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
 
   await user.save();
 
-  sendJWTTokenToClient(user, 200, res);
+  sendJWTTokenToClient(user, 200, req, res);
 });
