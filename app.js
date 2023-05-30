@@ -36,6 +36,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 //cors
 app.use(cors());
 
+//Access-Control-Allow-Origin *
+// app.use(cors({
+//   origin:'https://XXXX.XXX.XX' //front-end Domain
+// }))
+
+app.options('*', cors());
+//app.options('/api/v1/tours/:id', cors());
+
 //start application show run model dev or prod
 console.log(process.env?.NODE_ENV);
 
