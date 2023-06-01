@@ -4,16 +4,11 @@ const router = express.Router();
 
 const authController = require('../controllers/authController');
 const viewController = require('../controllers/viewController');
-const bookingController = require('../controllers/bookingController');
 
-// router.get('/', authController.isLogin, viewController.getOverView);
+router.use(viewController.alerts);
+
 //test
-router.get(
-  '/',
-  // bookingController.createBookingCheckout,
-  authController.isLogin,
-  viewController.getOverView
-);
+router.get('/', authController.isLogin, viewController.getOverView);
 
 router.get('/my-tours', authController.protect, viewController.getMyTours);
 

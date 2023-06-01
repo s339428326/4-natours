@@ -19,7 +19,7 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
     // success_url: `${req.protocol}://${req.get('host')}/?tour=${
     //   req.params.tourId
     // }&user=${req.user.id}&price=${tour.price}`,
-    success_url: `${req.protocol}://${req.get('host')}/my-tours`,
+    success_url: `${req.protocol}://${req.get('host')}/my-tours?alert=true`,
     cancel_url: `${req.protocol}://${req.get('host')}/tours/${tour.slug}`,
     customer_email: req.user.email,
     line_items: [
@@ -50,6 +50,7 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
   });
 });
 
+//使用url params 來傳遞訂單資訊()
 // exports.createBookingCheckout = catchAsync(async (req, res, next) => {
 //   //test using query fields
 //   const { tour, user, price } = req.query;

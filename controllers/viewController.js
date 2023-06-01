@@ -51,15 +51,26 @@ exports.getResetPassword = (req, res) => {
   });
 };
 
+exports.alerts = (req, res, next) => {
+  const { alert } = req.query;
+  if (alert === 'true') res.locals.alert = '訂單付款成功';
+  next();
+};
+
 exports.getMyTours = async (req, res) => {
   const ownBookings = await Booking.find({ user: req.user.id });
 
   const tourIDs = ownBookings.map((booking) => booking.tour);
   const tours = await Tour.find({ _id: { $in: tourIDs } });
 
+  const { alert } = res.locals;
+  console.log('getTours Message', alert);
+
   res.status(200).render('tours', {
     page: 'myBooking',
     title: 'My Booking',
     tours,
+    alert: alert || '',
+    test: 'test',
   });
 };

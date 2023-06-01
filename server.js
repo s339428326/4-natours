@@ -49,6 +49,7 @@ process.on('unhandledRejection', (err) => {
 });
 
 //Graceful Shutdown
+//因為heroku每過24小時會傳送SIGTERM重啟應用程式
 //(發送SIGTERM時, 通知應用程式將要關閉停止接收請球並等待所有請求都結束時, 在關閉應用程式)
 process.on('SIGTERM', () => {
   console.log('SIGTERM 被觸發, 正在準備關閉程序');

@@ -5,6 +5,7 @@ import displayMap from './mapbox';
 import axios from 'axios';
 
 import { login, logout } from './login';
+import { showAlert } from './alert';
 import { updateUserData } from './updateSettings';
 import { bookTour } from './stripe';
 
@@ -128,4 +129,10 @@ if (bookingBtn) {
     bookingBtn.textContent = '訂單處理中...';
     bookTour(bookingBtn.dataset.tourId);
   });
+}
+
+const bookingAlert = document.querySelector('body').dataset.alert;
+
+if (bookingAlert) {
+  showAlert('success', `${bookingAlert}`);
 }
